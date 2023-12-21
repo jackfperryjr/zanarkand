@@ -32,7 +32,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@v2
 
-    - name: Download Users
+    - name: Download Users Artifact
       uses: actions/download-artifact@v3
       with:
         name: users
@@ -81,7 +81,7 @@ jobs:
         git config --global user.email "pizza-bot@somewhere.org"
         git config --global user.name "pizza-bot"
 
-    - name: Download Creds
+    - name: Download Artifact
       uses: actions/download-artifact@v3
       with:
         name: creds
