@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  TF_VAR_users: 
+  # TF_VAR_users: 
 
 jobs:
   setup:
@@ -47,9 +47,9 @@ jobs:
       with:
         name: users
 
-    - name: Save Users
-      shell: bash
-      run: echo "TF_VAR_users=$(cat users.json)" >> $GITHUB_ENV
+    # - name: Save Users
+    #   shell: bash
+    #   run: echo "TF_VAR_users=$(cat users.json)" >> $GITHUB_ENV
 
     - name: TF Setup
       uses: hashicorp/setup-terraform@v2
