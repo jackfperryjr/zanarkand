@@ -49,3 +49,11 @@ jobs:
 
     - name: TF Plan
       run: terraform plan
+
+    # - name: TF Apply
+    #   run: terraform apply
+
+    - name: Check-in Export
+      run: |
+        echo "Checking in VM user creds."
+        
