@@ -13,7 +13,7 @@ jobs:
       run: |
         curl -k "https://www.moogleapi.com/api/v1/characters" > users.json
 
-    - name: Upload User Artifact
+    - name: Upload Users Artifact
       uses: actions/upload-artifact@v3
       with:
         name: users
