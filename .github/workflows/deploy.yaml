@@ -36,6 +36,7 @@ jobs:
   plan:
     name: TF Plan
     needs: Setup
+    runs-on: ubuntu-latest
 
     steps:
     - name: Download Users
