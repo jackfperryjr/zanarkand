@@ -1,3 +1,4 @@
+# creates a random string to be used in the virtual machine name
 resource "random_string" "virtual_machine_name" {
   length  = 9
   upper   = true
@@ -5,6 +6,7 @@ resource "random_string" "virtual_machine_name" {
   numeric = false
 }
 
+# creates a random password for the virtual machine
 resource "random_password" "password" {
   length      = 8
   special     = true
@@ -14,6 +16,7 @@ resource "random_password" "password" {
   min_special = 1
 }
 
+# creates a virtual machine in the devtest lab
 resource "azurerm_dev_test_linux_virtual_machine" "virtual_machine" {
   name                   = "z${random_string.virtual_machine_name.result}"
   lab_name               = var.lab_name

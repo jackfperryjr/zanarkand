@@ -3,30 +3,15 @@ name: deploy-lab
 on:
   workflow_dispatch:
 
-# env:
-  # TF_VAR_users: 
-
 jobs:
   setup:
     name: Setup
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     shell: bash
-    #     working-directory: ./
 
     steps:
-    # - name: Checkout Repo
-    #   uses: actions/checkout@v2
-
     - name: Get Users
-      id: get_users
       run: |
         curl -k "https://www.moogleapi.com/api/v1/characters" > users.json
-
-    # - name: Read Users
-    #   shell: bash
-    #   run: cat users.json
 
     - name: Upload Users
       uses: actions/upload-artifact@v3
@@ -34,7 +19,7 @@ jobs:
         name: users
         path: users.json
 
-  plan:
+  terraform:
     name: Terraform
     needs: Setup
     runs-on: ubuntu-latest
@@ -51,10 +36,6 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: users
-
-    # - name: Save Users
-    #   shell: bash
-    #   run: echo "TF_VAR_users=$(cat users.json)" >> $GITHUB_ENV
 
     - name: TF Setup
       uses: hashicorp/setup-terraform@v2

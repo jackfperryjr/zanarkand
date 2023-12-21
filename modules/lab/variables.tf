@@ -1,3 +1,6 @@
+# input variables for this module
+# no defaults make them required inputs
+# (no attributes are required when configuring variables)
 variable "region" {}
 variable "lab_name" {}
 variable "lab_vnet_id" {}
