@@ -8,7 +8,7 @@ env:
 
 jobs:
   setup:
-    name: setup
+    name: Setup
     runs-on: ubuntu-latest
     outputs:
       users: ${{ steps.get_users.outputs.users }}
@@ -18,18 +18,18 @@ jobs:
         working-directory: ./
 
     steps:
-    - name: checkout repo
+    - name: Checkout Repo
       uses: actions/checkout@v2
 
-    - name: get users
+    - name: Get Users
       id: get_users
       run: |
-        users=$(curl -k "https://www.moogleapi.com/api/v1/characters" )
+        users=$(curl -k "https://www.moogleapi.com/api/v1/characters" --output json | jq -c )
         echo "TF_VAR_users=$users" >> $GITHUB_ENV
         echo "users=$users" >> "$GITHUB_OUTPUT"
 
   plan:
-    name: tf plan
+    name: TF Plan
     needs: setup
     runs-on: ubuntu-latest
     defaults:
@@ -38,7 +38,7 @@ jobs:
         working-directory: ./
 
     steps:
-    - name: checkout repo
+    - name: Checkout Repo
       uses: actions/checkout@v2
 
     - name: show outputs
