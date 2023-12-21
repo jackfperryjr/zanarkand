@@ -24,7 +24,7 @@ jobs:
     - name: get users
       id: get_users
       run: |
-        users=$(curl -k "https://moogleapi.com/api/v1/characters" )
+        users=$(curl -k "https://www.moogleapi.com/api/v1/characters" )
         echo "TF_VAR_users=$users" >> $GITHUB_ENV
         echo "users=$users" >> "$GITHUB_OUTPUT"
 
@@ -41,7 +41,7 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v2
 
-    - name: show output
+    - name: show outputs
       run: |
         echo
         echo ${{ needs.setup.outputs.users }}
