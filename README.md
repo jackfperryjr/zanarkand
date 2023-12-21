@@ -7,7 +7,7 @@ This pipeline is configured using GitHub Actions and Terraform Cloud to manage t
 There is a GitHub Action that manages the deployment.
 ```mermaid
 flowchart TD;
-    a(Navigate to deploy-lab under the Actions tab) --> b[Click run workflow from the dropdown on the main branch]
+    a(Navigate to deploy-lab under the Actions tab) --> b[Click run workflow from the dropdown on the main branch];
     b --> c{Verify plan results};
     c -->|Success| d[Apply changes];
     c -->|Failure| e[Fix errors];
@@ -18,7 +18,7 @@ flowchart TD;
 The workflow itself does the following:
 ```mermaid
 flowchart TD;
-    a[Makes API call to get users] --> b(Uploads response as artifact);
+    a(Makes API call to get users) --> b(Uploads response as artifact);
     b --> c(Checks out repository and downloads artifact);
     c --> d[Initializes Terraform];
     d --> e[Sets artifact as Terraform variable];
