@@ -53,7 +53,42 @@ jobs:
     # - name: TF Apply
     #   run: terraform apply
 
-    - name: Check-in Export
+    - name: Simulate File Creation After Apply
+      shell: bash
+      run: echo [{'"username"':'"password"'}] > creds.json
+
+    - name: Upload Export
+      uses: actions/upload-artifact@v3
+      with:
+        name: creds
+        path: creds.json
+
+  export:
+    name: Export
+    needs: Terraform
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+
+    - name: Configure Git
       run: |
-        echo "Checking in VM user creds."
+        git config --global user.email "deploy-bot@somewhere.org"
+        git config --global user.name "deploy-bot"
+
+    - name: Download Creds
+      uses: actions/download-artifact@v3
+      with:
+        name: creds
+
+    - name: Check-in File
+      run: |
+        git add -A
+        git commit -m "🍕"
+        git push
         
