@@ -28,21 +28,21 @@ jobs:
         echo "TF_VAR_users=$users" >> $GITHUB_ENV
         echo "users=$users" >> "$GITHUB_OUTPUT"
 
-    plan:
-      name: tf plan
-      needs: setup
-      runs-on: latest
-      defaults:
-        run:
-          shell: bash
-          working-directory: ./
+  plan:
+    name: tf plan
+    needs: setup
+    runs-on: latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./
 
-      steps:
-      - name: checkout repo
-        uses: actions/checkout@v2
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
 
-      - name: show output
-        run: |
-          echo
-          echo ${{ needs.setup.outputs.users }}
-          echo 
+    - name: show output
+      run: |
+        echo
+        echo ${{ needs.setup.outputs.users }}
+        echo 
