@@ -10,16 +10,14 @@ jobs:
   setup:
     name: Setup
     runs-on: ubuntu-latest
-    outputs:
-      users: ${{ steps.get_users.outputs.users }}
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./
+    # defaults:
+    #   run:
+    #     shell: bash
+    #     working-directory: ./
 
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v2
+    # steps:
+    # - name: Checkout Repo
+    #   uses: actions/checkout@v2
 
     - name: Get Users
       id: get_users
@@ -40,6 +38,14 @@ jobs:
     name: Terraform
     needs: Setup
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
 
     steps:
     - name: Download Users
