@@ -1,4 +1,4 @@
-# the azurerm provider is the only provider that's required for this work, but other providers could be added here and installed/consumed as needed
+# setup required providers
 terraform {
     required_providers {
         azurerm = {
@@ -12,8 +12,13 @@ terraform {
     }
 }
 
-# Configure the Microsoft Azure Provider
+# configure the microsoft azure resource manager (azurerm) provider
+# the azurerm provider uses env variables during initialization
+# so there's no need to explicitly setup the credentials here
 provider "azurerm" {
     skip_provider_registration = true # this is only required when the user, service principal, or identity running terraform lacks the permissions to register azure resource providers
     features {}
 }
+
+# the random provider doesn't require any configuration
+# so there's nothing to do here

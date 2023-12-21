@@ -3,46 +3,49 @@ name: deploy-lab
 on:
   workflow_dispatch:
 
-env:
-  TF_VAR_users: 
-
 jobs:
   setup:
-    name: setup
-    runs-on: latests
-    outputs:
-      users: ${{ steps.get_users.outputs.users }}
+    name: Setup
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get Users
+      run: |
+        curl -k "https://www.moogleapi.com/api/v1/characters" > users.json
+
+    - name: Upload Users
+      uses: actions/upload-artifact@v3
+      with:
+        name: users
+        path: users.json
+
+  terraform:
+    name: Terraform
+    needs: Setup
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
         working-directory: ./
 
     steps:
-    - name: checkout repo
+    - name: Checkout Repo
       uses: actions/checkout@v2
 
-    - name: get users
-      id: get_users
-      run: |
-        users=$(curl -k "https://moogleapi.com/api/v1/characters" )
-        echo "TF_VAR_users=$users" >> $GITHUB_ENV
-        echo "users=$users" >> "$GITHUB_OUTPUT"
+    - name: Download Users
+      uses: actions/download-artifact@v3
+      with:
+        name: users
 
-    plan:
-      name: tf plan
-      needs: setup
-      runs-on: latest
-      defaults:
-        run:
-          shell: bash
-          working-directory: ./
+    - name: TF Setup
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.6.6
+        cli_config_credentials_hostname: 'app.terraform.io'
+        cli_config_credentials_token: ${{ secrets.TFC_TOKEN }}
 
-      steps:
-      - name: checkout repo
-        uses: actions/checkout@v2
+    - name: TF Init
+      run: terraform init
 
-      - name: show output
-        run: |
-          echo
-          echo ${{ needs.setup.outputs.users }}
-          echo 
+    - name: TF Plan
+      run: terraform plan
