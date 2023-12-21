@@ -22,14 +22,14 @@ resource "azurerm_dev_test_virtual_network" "zanarkand_lab_eastus2_vnet" {
 
 module "lab" {
   source   = "./modules/lab"
-  for_each = { for user in var.users: user => user }
+  for_each = { for user in local.user_json: user.name => user }
 
   region                  = var.region
   lab_name                = "zanarkand"
   lab_vnet_id             = azurerm_dev_test_virtual_network.zanarkand_lab_eastus2_vnet.id
   resource_group_name     = azurerm_resource_group.zanarkand_lab_eastus2_rg.name
   resource_group_location = var.region
-  username                = each.value.username
+  username                = lower(trimspace(each.value.name))
   virtual_machine_size    = "B"
   lab_subnet_name         = azurerm_dev_test_virtual_network.zanarkand_lab_eastus2_vnet.subnet[0].name
 }
