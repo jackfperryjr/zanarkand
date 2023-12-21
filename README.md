@@ -18,8 +18,8 @@ flowchart TD;
 The workflow itself does the following:
 ```mermaid
 flowchart TD;
-    a(Makes API call to get users) --> b(Uploads response as artifact);
-    b --> c(Checks out repository and downloads artifact);
+    a(Makes API call to get users) --> b[Uploads response as artifact];
+    b --> c[Checks out repository and downloads artifact];
     c --> d[Initializes Terraform];
     d --> e[Sets artifact as Terraform variable];
     e --> f{Runs terraform plan};
