@@ -46,6 +46,8 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: users
+
+    - name: Save Users
       shell: bash
       run: |
         users = $(cat users.json)
