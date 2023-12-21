@@ -24,7 +24,7 @@ jobs:
     - name: Get Users
       id: get_users
       run: |
-        $(curl -k "https://www.moogleapi.com/api/v1/characters" --output json | jq -c ) > users.json
+        $(curl -k "https://www.moogleapi.com/api/v1/characters") > users.json
         # echo "TF_VAR_users=$users" >> $GITHUB_ENV
         # echo "users=$users" >> "$GITHUB_OUTPUT"
     - name: Upload Users
@@ -46,5 +46,5 @@ jobs:
     - shell: bash
       run: |
         echo
-        cat users.json
+        echo cat "users.json"
         echo 
