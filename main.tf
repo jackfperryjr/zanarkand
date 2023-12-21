@@ -22,7 +22,7 @@ resource "azurerm_dev_test_virtual_network" "zanarkand_lab_eastus2_vnet" {
 
 module "lab" {
   source   = "./modules/lab"
-  for_each = { for user in local.user_json.users: user.username => user }
+  for_each = { for user in local.user_json: user => user }
 
   region                  = var.region
   lab_name                = "zanarkand"

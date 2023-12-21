@@ -24,25 +24,26 @@ jobs:
     - name: Get Users
       id: get_users
       run: |
-        users=$(curl -k "https://www.moogleapi.com/api/v1/characters" --output json | jq -c )
-        echo "TF_VAR_users=$users" >> $GITHUB_ENV
-        echo "users=$users" >> "$GITHUB_OUTPUT"
+        $(curl -k "https://www.moogleapi.com/api/v1/characters" --output json | jq -c ) > users.json
+        # echo "TF_VAR_users=$users" >> $GITHUB_ENV
+        # echo "users=$users" >> "$GITHUB_OUTPUT"
+    - name: Upload Users
+      uses: actions/upload-artifact@v3
+      with:
+        name: users
+        path: users.json
 
   plan:
     name: TF Plan
-    needs: setup
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./
+    needs: Setup
 
     steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v2
-
-    - name: show outputs
+    - name: Download Users
+      uses: actions/download-artifact@v3
+      with:
+        name: users
+    - shell: bash
       run: |
         echo
-        echo ${{ needs.setup.outputs.users }}
+        echo "cat users.json"
         echo 
