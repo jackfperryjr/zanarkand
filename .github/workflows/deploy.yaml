@@ -25,11 +25,10 @@ jobs:
       id: get_users
       run: |
         curl -k "https://www.moogleapi.com/api/v1/characters" > users.json
-        # echo "TF_VAR_users=$users" >> $GITHUB_ENV
-        # echo "users=$users" >> "$GITHUB_OUTPUT"
-    - name: Read Users
-      shell: bash
-      run: cat users.json
+
+    # - name: Read Users
+    #   shell: bash
+    #   run: cat users.json
 
     - name: Upload Users
       uses: actions/upload-artifact@v3
@@ -48,7 +47,4 @@ jobs:
       with:
         name: users
     - shell: bash
-      run: |
-        echo
-        echo cat "users.json"
-        echo 
+      run: cat users.json
