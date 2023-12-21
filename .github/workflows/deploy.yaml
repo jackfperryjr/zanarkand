@@ -50,8 +50,8 @@ jobs:
     - name: Save Users
       shell: bash
       run: |
-        users = $(cat users.json)
-        echo "TF_VAR_users=$users" >> $GITHUB_ENV
+        user_json = $(cat users.json)
+        echo "TF_VAR_users=$user_json" >> $GITHUB_ENV
 
     - name: TF Setup
       uses: hashicorp/setup-terraform@v2
