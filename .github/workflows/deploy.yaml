@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  TF_VAR_users: 
+  TF_VAR_users: []
 
 jobs:
   setup:
@@ -46,6 +46,10 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: users
+      shell: bash
+      run: |
+        users = $(cat users.json)
+        echo "TF_VAR_users=$users" >> $GITHUB_ENV
 
     - name: TF Setup
       uses: hashicorp/setup-terraform@v2
@@ -58,4 +62,4 @@ jobs:
       run: terraform init
 
     - name: TF Plan
-      run: terraform plan -var 'users=${{ cat users.json }}'
+      run: terraform plan
