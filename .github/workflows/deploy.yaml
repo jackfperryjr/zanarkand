@@ -9,7 +9,7 @@ env:
 jobs:
   setup:
     name: setup
-    runs-on: latests
+    runs-on: ubuntu-latest
     outputs:
       users: ${{ steps.get_users.outputs.users }}
     defaults:
@@ -31,7 +31,7 @@ jobs:
   plan:
     name: tf plan
     needs: setup
-    runs-on: latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
