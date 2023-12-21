@@ -3,7 +3,7 @@ name: deploy-lab
 on:
   workflow_dispatch:
 
-env:
+# env:
   # TF_VAR_users: 
 
 jobs:
