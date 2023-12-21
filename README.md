@@ -17,7 +17,7 @@ flowchart TD;
 ### GitHub Workflow
 The workflow itself does the following:
 ```mermaid
-flowchart LR;
+flowchart TD;
     a(Makes API call to get users) --> b[Uploads response as artifact];
     b --> c[Checks out repository and downloads artifact];
     c --> d[Initializes Terraform];
