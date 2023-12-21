@@ -40,4 +40,3 @@ resource "local_file" "user_credentials" {
   })
   filename = "${path.module}/creds.json"
 }
-

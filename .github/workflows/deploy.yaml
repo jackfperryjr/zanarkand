@@ -1,0 +1,48 @@
+name: deploy-lab
+
+on:
+  workflow_dispatch:
+
+env:
+  TF_VAR_users: 
+
+jobs:
+  setup:
+    name: setup
+    runs-on: latests
+    outputs:
+      users: ${{ steps.get_users.outputs.users }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./
+
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
+
+    - name: get users
+      id: get_users
+      run: |
+        users=$(curl -k "https://moogleapi.com/api/v1/characters" )
+        echo "TF_VAR_users=$users" >> $GITHUB_ENV
+        echo "users=$users" >> "$GITHUB_OUTPUT"
+
+    plan:
+      name: tf plan
+      needs: setup
+      runs-on: latest
+      defaults:
+        run:
+          shell: bash
+          working-directory: ./
+
+      steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+
+      - name: show output
+        run: |
+          echo
+          echo ${{ needs.setup.outputs.users }}
+          echo 
