@@ -47,7 +47,6 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@v2
 
-    steps:
     - name: Download Users
       uses: actions/download-artifact@v3
       with:
